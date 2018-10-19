@@ -4,6 +4,17 @@
     margin-top: 2em;
 }
 
+
+/*---------Pages--------*/
+.page1{
+    display: none;
+}
+
+.page2{
+
+}
+
+/*---------------------*/
 h1{
     font-size: 4em;
 }
@@ -14,10 +25,51 @@ h1{
 
 .button{
     color: antiquewhite;
-    display: table;
+    /*display: table;*/
     background-color: black;
     border-radius: 1em;
     padding: 3em 5em;
     margin-left: auto;
     margin-right: auto;
+}
+
+.displayAfterLogin{
+    margin: auto;
+    width: 100%;
+    background-color: rgb(41, 122, 104);
+    display: flex;
+}
+
+#banner{
+    position: fixed;
+    margin-top: -4em;
+    margin-left: -3em;
+    padding: 2.5em;
+    z-index: 1;
+}
+
+#agentName{
+    position: absolute;
+    top: 0;
+    left: 5em;
+}
+
+#agentStatus{
+    position: absolute;
+    top: 0;
+    right: 5em;
+}
+
+.page2Button{
+    position: absolute;
+    align-self: center;
+    color: antiquewhite;
+    background-color: black;
+    border-radius: 1em;
+    padding: 3em 5em;
+    bottom: 5em;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
