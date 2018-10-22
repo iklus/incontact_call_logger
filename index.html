@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<title>InContact Call Logger</title>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+<button onclick="redirectToInContactAuth()">Test Auth</button>
+
+</body>
+<script>
+    var application = "InContact_API_Test";
+    var vendor = "Ivan_Klus";
+    //var client_id = window.btoa(application + "@" + vendor);
+    var client_id = "InContact_API_Test@Ivan_Klus";
+
+    var implicitUri = "https://api.incontact.com/InContactAuthorizationServer/Authenticate";
+    var token_scope = "RealTimeApi AdminApi AgentApi ReportingApi";
+    var redirect_uri = "localhost:8000";
+    var state_object = "myState";
+
+    function redirectToInContactAuth() {
+        var url = implicitUri;
+        url = url + "?state=" + state_object;
+        url = url + "&response_type=token";
+        url = url + "&client_id=" + encodeURIComponent(client_id);
+        url = url + "&redirect_uri=" + encodeURIComponent(redirect_uri);
+        url = url + "&scope=" + encodeURIComponent(token_scope);
+        console.log(url);
+        window.location.href = url;
+    }
+
+
+
+    console.log("Hello JavaScript!");
+</script>
+</html>
