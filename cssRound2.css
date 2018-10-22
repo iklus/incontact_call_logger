@@ -1,0 +1,30 @@
+.divider16em{
+    margin-top: 16em;
+}
+
+.divider8em{
+    margin-top: 8em;
+}
+
+.divider4em{
+    margin-top: 4em;
+}
+
+.divider2em{
+    margin-top: 2em;
+}
+
+.page1{
+}
+
+.page2 {
+    display: none;
+}
+
+.page3{
+    display: none;
+}
+
+.page4{
+    display: none;
+}
