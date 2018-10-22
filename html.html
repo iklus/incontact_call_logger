@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8"/>
         <link rel="stylesheet" type="text/css" href='./css.css' title="css woohoo"/>
+        <script src="./js.js"></script>
     </head>
     <body>
-        <div class="page1">
+        <!--<div class="page1">
             <h1>Sample Text</h1>
             <div class="buttonGroup">
                 <div class="button">Log into SalesForce</div>
@@ -18,6 +19,76 @@
                 <div id="agentStatus">agentStatus</div>
             </div>
             <div class="page2Button">Log past call</div>
+        </div>
+        <div class="page3">
+            <div id="banner" class="displayAfterLogin">
+                <p id="agentName">agentName</h1>
+                <div id="agentStatus">agentStatus</div>
+            </div>
+            <div>
+                <input class="phoneNumber" type="text" placeholder="Phone Number">
+                <div onclick="callReasonOnClick()" class="callReason">callReason
+                    <div id="callReasonDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <div onclick="salesforceOrganizationOnclick()" class="salesforceOrganization">salesforceOrganization
+                    <div id="salesforceOrganizationDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <div onclick="salesforceContactOnclick()" class="salesforceContact">salesforceContact
+                    <div id="salesforceContactDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <textarea class="notes" type="text" placeholder="Notes"></textarea>
+                <div class="submitBtn" type="submit">Submit</div>
+            </div>
+        </div>-->
+        <div class="page4">
+            <div id="banner" class="displayAfterLogin">
+                <p id="agentName">agentName</h1>
+                <div id="agentStatus">agentStatus</div>
+            </div>
+            <div>
+                <div onclick="phoneNumberDropdownOnclick()" class="phoneNumberDropdownOuter">phoneNumber (class may cause css funkiness)
+                    <div id="phoneNumberDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <div onclick="callReasonOnclick()" class="callReason">callReason
+                    <div id="callReasonDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <div onclick="salesforceOrganizationOnclick()" class="salesforceOrganization">salesforceOrganization
+                    <div id="salesforceOrganizationDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <div onclick="salesforceContactOnclick()" class="salesforceContact">salesforceContact
+                    <div id="salesforceContactDropdown">
+                        <a href="#">Option 1</a>
+                        <a href="#">Option 2</a>
+                        <a href="#">Option 3</a>
+                    </div>
+                </div>
+                <textarea class="notes" type="text" placeholder="Notes"></textarea>
+                <div class="submitBtn" type="submit">Submit</div>
+            </div>
         </div>
     </body>
 </html>
