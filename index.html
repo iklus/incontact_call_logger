@@ -4,9 +4,10 @@
 <body>
 
 <h1>This InContact Call Logger testing web app</h1>
-<p>This is a paragraph.</p>
+<p>This is a test paragraph.</p>
 
 <button onclick="redirectToInContactAuth()">Test Auth</button>
+<button onclick="getAgentContactHistoryRequest()">Agent Contact History</button>
 
 </body>
 <script>
@@ -44,9 +45,37 @@
     })();
     console.log(urlParams);
 
+    getAgentContactHistoryJSON = {
+        'startDate': '2018-10-10T08:00:00',
+        'endDate': '2018-10-22T08:00:00',
+        'mediaTypeId': 4 
+    }   // 4 is the media type for Phone Calls
 
-    var request = new XMLHttpRequest();
-    request.open('GET', urlParams[resource_server_base_uri])
+        /* Unused parameters
+        'updatedSince': 'ISO 8601 formatted date/time',
+        'fields': 'string',
+        'skip': 'integer',
+        'top': 'integer',
+        'orderBy': 'string'
+        */
+
+    var agentId = 6896163;  // Test agent is Caylee Rosa 
+    var requestURL = urlParams[resource_server_base_uri] + 'services/{version}/agents/' + agentId + '/interaction-history';
+
+    function getAgentContactHistoryRequest() {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 alert(this.responseText);
+             } else {
+                 console.error(this.error);
+             }
+        };
+        request.open('GET', urlParams[resource_server_base_uri])
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(getAgentContactHistoryJSON);
+    }
+    
 
 
     console.log("Hello JavaScript!");
