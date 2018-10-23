@@ -88,7 +88,7 @@
             //Process success actions
             console.log('success: ' + status + " | " + statusCode);
             console.log(result);
-            document.getElementById('test').innerHTML = result;
+            document.getElementById('test').innerHTML = JSON.stringify(result);
         },
         'error': function (XMLHttpRequest, textStatus, errorThrown) {
             //Process error actions
