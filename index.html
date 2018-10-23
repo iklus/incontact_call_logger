@@ -3,7 +3,7 @@
 <title>InContact Call Logger</title>
 <body>
 
-<h1>This is a heading</h1>
+<h1>This InContact Call Logger testing web app</h1>
 <p>This is a paragraph.</p>
 
 <button onclick="redirectToInContactAuth()">Test Auth</button>
@@ -17,7 +17,7 @@
 
     var implicitUri = "https://api.incontact.com/InContactAuthorizationServer/Authenticate";
     var token_scope = "RealTimeApi AdminApi AgentApi ReportingApi";
-    var redirect_uri = "localhost:8000";
+    var redirect_uri = "http://ivankl.us/incontact_call_logger";
     var state_object = "myState";
 
     function redirectToInContactAuth() {
