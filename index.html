@@ -60,7 +60,7 @@
         */
 
     var agentId = 6896163;  // Test agent is Caylee Rosa 
-    var requestURL = urlParams[resource_server_base_uri] + 'services/{version}/agents/' + agentId + '/interaction-history';
+    var requestURL = urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history';
 
     function getAgentContactHistoryRequest() {
         var request = new XMLHttpRequest();
@@ -71,9 +71,10 @@
                  console.error(this.error);
              }
         };
-        request.open('GET', urlParams[resource_server_base_uri])
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(getAgentContactHistoryJSON);
+        request.open('GET', requestURL);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.setRequestHeader("Authorization", "bearer " + urlParams["access_token"]);
+        request.send(getAgentContactHistoryJSON);
     }
     
 
