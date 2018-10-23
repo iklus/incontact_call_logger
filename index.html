@@ -86,10 +86,12 @@
         'data': getAgentContactHistoryPayload,
         'success': function (result, status, statusCode) {
             //Process success actions
-            return result;
+            console.log('success');
+            alert(result);
         },
         'error': function (XMLHttpRequest, textStatus, errorThrown) {
             //Process error actions
+            console.log('error' + errorThrown);
             return false;
         }
     });
