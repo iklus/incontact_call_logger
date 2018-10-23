@@ -8,7 +8,7 @@
 <body>
 
 <h1>This InContact Call Logger testing web app</h1>
-<p>This is a test paragraph.</p>
+<p id="test">This is a test paragraph.</p>
 
 <button onclick="redirectToInContactAuth()">Test Auth</button>
 <button onclick="getAgentContactHistoryRequest()">Agent Contact History</button>
@@ -86,8 +86,9 @@
         'data': getAgentContactHistoryPayload,
         'success': function (result, status, statusCode) {
             //Process success actions
-            console.log('success');
+            console.log('success: ' + status + " | " + statusCode);
             console.log(result);
+            document.getElementById('test').innerHTML = result;
         },
         'error': function (XMLHttpRequest, textStatus, errorThrown) {
             //Process error actions
