@@ -31,6 +31,22 @@
         window.location.href = url;
     }
 
+    var urlParams;
+    (window.onpopstate = function () {
+        var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+            urlParams = {};
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+    })();
+    console.log(urlParams);
+
+
+    var request = new XMLHttpRequest();
+    request.open('GET', urlParams[resource_server_base_uri])
 
 
     console.log("Hello JavaScript!");
