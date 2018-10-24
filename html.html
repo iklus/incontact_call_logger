@@ -1,94 +1,169 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" type="text/css" href='./css.css' title="css woohoo"/>
-        <script src="./js.js"></script>
-    </head>
-    <body>
-        <!--<div class="page1">
-            <h1>Sample Text</h1>
-            <div class="buttonGroup">
-                <div class="button">Log into SalesForce</div>
-                <div class="button">Log into InContact</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href='./cssRound2.css' title="css woohoo"/>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <script src="./js.js"></script>      
+    <div class="page1">
+        <div class="container">
+            <div class="divider16em"></div>
+            <div class="row">
+                <div class="col text-center"><h1>Example Text</h1></div>
+            </div>
+            <div class="divider8em"></div>
+            <div class="row">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary">Log into SalesForce</button>
+                </div>
+            </div>
+            <div class="divider4em"></div>
+            <div class="row">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary">Log into InContact</button>
+                </div>
             </div>
         </div>
-        <div class="page2">
-            <div id="banner" class="displayAfterLogin">
-                <p id="agentName">agentName</h1>
-                <div id="agentStatus">agentStatus</div>
+    </div>
+    
+    <div class="page2">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="nav-item" href="#">agentName</a>
+            <a class="nav-item ml-auto" href="#">agentStatus</a>      
+        </nav>
+
+        <div class="container">
+            <div class="divider16em"></div>
+            <div class="row">
+                <div class="col text-center"><h1>Waiting for call</h1></div>
             </div>
-            <div class="page2Button">Log past call</div>
-        </div>
-        <div class="page3">
-            <div id="banner" class="displayAfterLogin">
-                <p id="agentName">agentName</h1>
-                <div id="agentStatus">agentStatus</div>
-            </div>
-            <div>
-                <input class="phoneNumber" type="text" placeholder="Phone Number">
-                <div onclick="callReasonOnClick()" class="callReason">callReason
-                    <div id="callReasonDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
+            <div class="divider16em"></div>
+            <div class="row">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary">Log Past Call</button>
                 </div>
-                <div onclick="salesforceOrganizationOnclick()" class="salesforceOrganization">salesforceOrganization
-                    <div id="salesforceOrganizationDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <div onclick="salesforceContactOnclick()" class="salesforceContact">salesforceContact
-                    <div id="salesforceContactDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <textarea class="notes" type="text" placeholder="Notes"></textarea>
-                <div class="submitBtn" type="submit">Submit</div>
-            </div>
-        </div>-->
-        <div class="page4">
-            <div id="banner" class="displayAfterLogin">
-                <p id="agentName">agentName</h1>
-                <div id="agentStatus">agentStatus</div>
-            </div>
-            <div>
-                <div onclick="phoneNumberDropdownOnclick()" class="phoneNumberDropdownOuter">phoneNumber (class may cause css funkiness)
-                    <div id="phoneNumberDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <div onclick="callReasonOnclick()" class="callReason">callReason
-                    <div id="callReasonDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <div onclick="salesforceOrganizationOnclick()" class="salesforceOrganization">salesforceOrganization
-                    <div id="salesforceOrganizationDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <div onclick="salesforceContactOnclick()" class="salesforceContact">salesforceContact
-                    <div id="salesforceContactDropdown">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
-                    </div>
-                </div>
-                <textarea class="notes" type="text" placeholder="Notes"></textarea>
-                <div class="submitBtn" type="submit">Submit</div>
             </div>
         </div>
-    </body>
+
+    </div>
+
+    <div class="page3">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="nav-item" href="#">agentName</a>
+            <a class="nav-item ml-auto" href="#">agentStatus</a>      
+        </nav>
+    
+        <div class="divider4em"></div>
+
+        <div class="container">
+            <div class="form-group">
+                <div class="row">
+                    <label for="phoneNumberDropdown">Phone Number</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="callReasonDropdown">Call Reason</label>
+                    <select class="form-control" id="callReasonDropdown">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="salesforceOrganizationDropdown">SalesForce Organization</label>
+                    <select class="form-control" id="salesforceOrganizationDropdown">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="salesforceContactDropdown">SalesForce Contact</label>
+                    <select class="form-control" id="salesforceContactDropdown">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <label for="notes">Notes</label>
+                <textarea class="form-control" id="notes" rows="4"></textarea>   
+            </div>
+        </div>  
+    </div>
+    
+    <div class="page4">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="nav-item" href="#">agentName</a>
+            <a class="nav-item ml-auto" href="#">agentStatus</a>      
+        </nav>
+    
+        <div class="divider4em"></div>
+
+        <div class="container">
+            <div class="form-group">
+                <div class="row">
+                    <label for="phoneNumberDropdown">Phone Number</label>
+                    <select onclick="phoneNumberDropdownOnclick()" class="form-control" id="phoneNumberDropdown">
+                        <option hidden></option>
+                        <!--<option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>-->
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="callReasonDropdown">Call Reason</label>
+                    <select placeholder="placeholder" class="form-control" id="callReasonDropdown">
+                        <option hidden></option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="salesforceOrganizationDropdown">SalesForce Organization</label>
+                    <select class="form-control" id="salesforceOrganizationDropdown">
+                        <option hidden></option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <div class="row">
+                    <label for="salesforceContactDropdown">SalesForce Contact</label>
+                    <select class="form-control" id="salesforceContactDropdown">
+                        <option hidden></option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="divider2em"></div>
+                <label for="notes">Notes</label>
+                <textarea class="form-control" id="notes" rows="4"></textarea>   
+            </div>
+        </div>    
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+</body>
 </html>

@@ -1,16 +1,24 @@
-*{
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+.divider16em{
+    margin-top: 16em;
+}
+
+.divider8em{
+    margin-top: 8em;
+}
+
+.divider4em{
+    margin-top: 4em;
+}
+
+.divider2em{
     margin-top: 2em;
 }
 
-
-/*---------Pages--------*/
 .page1{
     display: none;
 }
 
-.page2{
+.page2 {
     display: none;
 }
 
@@ -19,170 +27,4 @@
 }
 
 .page4{
-    
-}
-
-/*---------------------*/
-h1{
-    font-size: 4em;
-}
-
-.buttonGroup{
-    margin-top: 8em;
-}
-
-.button{
-    color: antiquewhite;
-    /*display: table;*/
-    background-color: black;
-    border-radius: 1em;
-    padding: 3em 5em;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.displayAfterLogin{
-    margin: auto;
-    width: 100%;
-    background-color: darkolivegreen;
-    display: flex;
-}
-
-#banner{
-    position: fixed;
-    margin-top: -6em;
-    margin-left: -3em;
-    padding: 2.5em;
-    z-index: 1;
-}
-
-#agentName{
-    position: absolute;
-    top: 0;
-    left: 5em;
-}
-
-#agentStatus{
-    position: absolute;
-    top: 0;
-    right: 5em;
-}
-
-.page2Button{
-    position: absolute;
-    align-self: center;
-    color: antiquewhite;
-    background-color: black;
-    border-radius: 1em;
-    padding: 3em 5em;
-    bottom: 5em;
-    width: 80%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-}
-
-.callReason{
-    background: whitesmoke;
-    width: 30em;
-    max-width: 80%;
-    margin: auto;
-    padding: 0.5em 0;
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
-.salesforceOrganization{
-    background: whitesmoke;
-    width: 30em;
-    max-width: 80%;
-    padding: 0.5em 0;
-    margin: auto;
-    margin-bottom: 2em;
-}
-
-.salesforceContact{
-    background: whitesmoke;
-    width: 30em;
-    max-width: 80%;
-    padding: 0.5em 0;
-    margin: auto;
-}
-
-.phoneNumber{
-    width: 30em;
-    max-width: 80%;
-    margin-top: 6em;
-}
-
-.notes{
-    width: 30em;
-    max-width: 80%;
-    height: 5em;    
-}
-
-#callReasonDropdown{
-    display: none;
-}
-
-#callReasonDropdown.show{
-    display: block;
-}
-
-a {
-    /*border: 0.15em solid fuchsia;*/
-    padding: 0.2em 0;
-    display: block;
-    margin: 0;
-}
-
-#salesforceOrganizationDropdown{
-    display: none;
-}
-
-#salesforceOrganizationDropdown.show{
-    display: block;
-}
-
-#salesforceContactDropdown {
-    display: none;
-}
-
-#salesforceContactDropdown.show {
-    display: block;
-}
-
-.submitBtn {
-    margin: auto;
-    background: olive;
-    width: 20em;
-    max-width: 80%;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 0.2em;
-    border-radius: 0.25em;
-}
-
-.phoneNumberDropdownOuter {
-    background: whitesmoke;
-    border-top-style: solid;
-    border-top-color: transparent;
-    border-top-width: 0em;
-    width: 30em;
-    max-width: 80%;
-    padding: 0.5em 0;
-    margin: auto;
-    margin-top: 12em;
-}
-
-#phoneNumberDropdown {
-    display: none;
-}
-
-#phoneNumberDropdown.show {
-    display: block;
-}
-
-.page4, #banner {
-    margin-top: -7em;
 }
