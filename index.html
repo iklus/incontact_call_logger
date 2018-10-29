@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>InContact Call Logger</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>This InContact Call Logger testing web app</h1>
+
+<input type="text" id="agentIdValue" value="6896120">
+
+<p id="test">This is a test paragraph.</p>
+
+<button onclick="redirectToInContactAuth()">Test Auth</button>
+<button onclick="getAgentContactHistoryRequest()">Agent Contact History</button>
+<button onclick="sampleGetAgentContactHistory()">Sample Agent Contact History</button>
+
+</body>
+<script>
+    var application = "InContact_API_Test";
+    var vendor = "Ivan_Klus";
+    //var client_id = window.btoa(application + "@" + vendor);
+    var client_id = "InContact_API_Test@Ivan_Klus";
+
+    var implicitUri = "https://api.incontact.com/InContactAuthorizationServer/Authenticate";
+    var token_scope = "RealTimeApi AdminApi AgentApi ReportingApi";
+    var redirect_uri = "http://ivankl.us/incontact_call_logger";
+    var state_object = "myState";
+
+    function redirectToInContactAuth() {
+        var url = implicitUri;
+        url = url + "?state=" + state_object;
+        url = url + "&response_type=token";
+        url = url + "&client_id=" + encodeURIComponent(client_id);
+        url = url + "&redirect_uri=" + encodeURIComponent(redirect_uri);
+        url = url + "&scope=" + encodeURIComponent(token_scope);
+        console.log(url);
+        window.location.href = url;
+    }
+
+    var urlParams;
+    (window.onpopstate = function () {
+        var match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.search.substring(1);
+            urlParams = {};
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+    })();
+    console.log(urlParams);
+
+    getAgentContactHistoryJSON = {
+        'startDate': '2018-10-22T08:00:00.000Z',
+        'endDate': '2018-10-22T16:00:00.000Z',
+        'mediaTypeId': '4'
+    }   // 4 is the media type for Phone Calls
+
+        /* Unused parameters
+        'updatedSince': 'ISO 8601 formatted date/time',
+        'fields': 'string',
+        'skip': 'integer',
+        'top': 'integer',
+        'orderBy': 'string'
+        */
+
+    //var agentId = 6896163;  Test agent is Caylee Rosa 
+    var requestURL = urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history';
+
+
+    function sampleGetAgentContactHistory() {
+    var agentId = document.getElementById('agentIdValue').value;
+    console.log('Agent ID:' + agentId);
+    getAgentContactHistoryPayload = {
+        'startDate': '2018-10-22T08:00:00.000Z',
+        'endDate': '2018-10-22T16:00:00.000Z',
+        'mediaTypeId': 4
+    }
+    $.ajax({
+        //The baseURI variable is created by the result.base_server_base_uri,
+        //which is returned when getting a token and should be used to create the URL base
+        'url': urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history',
+        'type': 'GET',
+        'headers': {
+            'Authorization': 'bearer ' + urlParams["access_token"],
+            'content-Type': 'application/x-www-form-urlencoded'
+        },
+        'data': getAgentContactHistoryPayload,
+        'success': function (result, status, statusCode) {
+            //Process success actions
+            console.log('success: ' + status + " | " + statusCode);
+            console.log(result);
+            document.getElementById('test').innerHTML = JSON.stringify(result);
+        },
+        'error': function (XMLHttpRequest, textStatus, errorThrown) {
+            //Process error actions
+            console.log('error' + errorThrown);
+            return false;
+        }
+    });
+}
+
+
+
+
+
+    function getAgentContactHistoryRequest() {
+        var agentId = document.getElementById('agentIdValue').value;
+        console.log('Agent ID:' + agentId);
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+                 alert(this.responseText);
+             } else {
+                 //console.error(this.error);
+             }
+        };
+        request.open('GET', requestURL);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.setRequestHeader("Authorization", "bearer " + urlParams["access_token"]);
+        request.send(getAgentContactHistoryJSON);
+    }
+    
+
+
+    console.log("Hello JavaScript!");
+</script>
+</html>
