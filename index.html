@@ -16,6 +16,7 @@
 <button onclick="redirectToInContactAuth()">Test Auth</button>
 <button onclick="getAgentContactHistoryRequest()">Agent Contact History</button>
 <button onclick="sampleGetAgentContactHistory()">Sample Agent Contact History</button>
+<button onclick="sampleGetAgentStatus()">Sample Agent Status</button>
 
 </body>
 <script>
@@ -123,7 +124,42 @@
         request.setRequestHeader("Authorization", "bearer " + urlParams["access_token"]);
         request.send(getAgentContactHistoryJSON);
     }
-    
+
+
+
+
+
+    function sampleGetAgentStatus() {
+        var agentId = document.getElementById('agentIdValue').value;
+        console.log('Agent ID:' + agentId);
+        getAgentContactHistoryPayload = {
+            'updatedSince': '2018-10-29T14:07:19-04:00', //'2018-10-22T08:00:00.000Z',
+            'fields': 'agentStateId, firstName, lastName'
+        }
+        $.ajax({
+            //The baseURI variable is created by the result.base_server_base_uri,
+            //which is returned when getting a token and should be used to create the URL base
+            'url': urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history',
+            'type': 'GET',
+            'headers': {
+                'Authorization': 'bearer ' + urlParams["access_token"],
+                'content-Type': 'application/x-www-form-urlencoded'
+            },
+            'data': getAgentContactHistoryPayload,
+            'success': function (result, status, statusCode) {
+                //Process success actions
+                console.log('success: ' + status + " | " + statusCode);
+                console.log(result);
+                document.getElementById('test').innerHTML = JSON.stringify(result);
+            },
+            'error': function (XMLHttpRequest, textStatus, errorThrown) {
+                //Process error actions
+                console.log('error' + errorThrown);
+                return false;
+            }
+        });
+    }
+      
 
 
     console.log("Hello JavaScript!");
