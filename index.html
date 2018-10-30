@@ -3,19 +3,34 @@
 <head>
     <title>InContact Call Logger</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/index.css"></link>
 </head>
 
 <body>
 
 <h1>This InContact Call Logger testing web app</h1>
 
-<input type="text" id="agentIdValue" value="6896120">
+<p>Agent ID:   <input type="text" id="agentIdValue" value="6896120"></p>  <!-- 6896120 is Liz Jackson & 6896163 is Caylee Rosa -->
+<p>Start Date: <input type="text" id="startDate" value="2018-10-23T08:00:00.000Z"></p>
+<p>End Date:   <input type="text" id="endDate" value="2018-10-30T08:00:00.000Z"></p>
 
-<p id="test">This is a test paragraph.</p>
+<p>
+    <button onclick="redirectToInContactAuth()">InContact Login</button>
+    <button onclick="getAgentContactHistory()">Get Agent Contact History</button>
+</p>
 
-<button onclick="redirectToInContactAuth()">Test Auth</button>
-<button onclick="getAgentContactHistoryRequest()">Agent Contact History</button>
-<button onclick="sampleGetAgentContactHistory()">Sample Agent Contact History</button>
+<!--
+<div class="dropdown">
+    <button onclick="dropdownFunction()" class="dropbtn">Dropdown</button>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
+-->
+
+<p id="test">This is a temp paragraph used for output.</p>
 
 </body>
 <script>
@@ -29,6 +44,24 @@
     var redirect_uri = "http://ivankl.us/incontact_call_logger";
     var state_object = "myState";
 
+    function dropdownFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }   
+    }
+
     function redirectToInContactAuth() {
         var url = implicitUri;
         url = url + "?state=" + state_object;
@@ -39,6 +72,7 @@
         console.log(url);
         window.location.href = url;
     }
+
 
     var urlParams;
     (window.onpopstate = function () {
@@ -53,12 +87,18 @@
     })();
     console.log(urlParams);
 
-    getAgentContactHistoryJSON = {
-        'startDate': '2018-10-22T08:00:00.000Z',
-        'endDate': '2018-10-22T16:00:00.000Z',
+
+    var requestURL = urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history';
+    var agentContactHistoryResult;
+
+    function getAgentContactHistory() {
+    var agentId = document.getElementById('agentIdValue').value;
+    console.log('Agent ID:' + agentId);
+    getAgentContactHistoryPayload = {
+        'startDate': document.getElementById('startDate').value,
+        'endDate': document.getElementById('endDate').value,
         'mediaTypeId': '4'
     }   // 4 is the media type for Phone Calls
-
         /* Unused parameters
         'updatedSince': 'ISO 8601 formatted date/time',
         'fields': 'string',
@@ -66,19 +106,6 @@
         'top': 'integer',
         'orderBy': 'string'
         */
-
-    //var agentId = 6896163;  Test agent is Caylee Rosa 
-    var requestURL = urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history';
-
-
-    function sampleGetAgentContactHistory() {
-    var agentId = document.getElementById('agentIdValue').value;
-    console.log('Agent ID:' + agentId);
-    getAgentContactHistoryPayload = {
-        'startDate': '2018-10-22T08:00:00.000Z',
-        'endDate': '2018-10-22T16:00:00.000Z',
-        'mediaTypeId': 4
-    }
     $.ajax({
         //The baseURI variable is created by the result.base_server_base_uri,
         //which is returned when getting a token and should be used to create the URL base
@@ -93,6 +120,7 @@
             //Process success actions
             console.log('success: ' + status + " | " + statusCode);
             console.log(result);
+            agentContactHistoryResult = result;
             document.getElementById('test').innerHTML = JSON.stringify(result);
         },
         'error': function (XMLHttpRequest, textStatus, errorThrown) {
@@ -106,7 +134,7 @@
 
 
 
-
+    /*  Doesn't work (my attempt to make REST call without jQuery)
     function getAgentContactHistoryRequest() {
         var agentId = document.getElementById('agentIdValue').value;
         console.log('Agent ID:' + agentId);
@@ -123,7 +151,7 @@
         request.setRequestHeader("Authorization", "bearer " + urlParams["access_token"]);
         request.send(getAgentContactHistoryJSON);
     }
-    
+    */
 
 
     console.log("Hello JavaScript!");
