@@ -43,15 +43,32 @@ function sampleGetAgentStatus() {
             console.log(agentStatus.agentStates[0]);
             let html = '';
             let currTime = Date.now();
+            let count = 0;
             for (let i = 0; i < agentStatus.agentStates.length; i++){
                 if(agentStatus.agentStates[i].teamName == 'SL Client Services'){
-                    html += '<div class="row">';
-                    html += '<div class="col-2">' + agentStatus.agentStates[i].firstName + ' ' + agentStatus.agentStates[i].lastName + '</div>'
-                    html += '<div class="col-6"></div>';
-                    let newDate = new Date(agentStatus.agentStates[i].lastUpdateTime);
-                    html += '<div class="col-3">' + secondsToTime(currTime-newDate.getTime()) + '</div>';
-                    html += '<div class="col-1 status' + agentStatus.agentStates[i].agentStateId + '">' + agentStatus.agentStates[i].agentStateId + '</div>';
+                    html += '<div class="card">';
+                    //add ID
+                        html += '<div class="card-header"';
+                            html += '<h5 class="mb-0">';
+                    //change tags
+                                html += '<button class="btn btn-link" data-toggle="collapse" data-target="#collapse' + count + '" aria-expanded="true" aria-controls="collapse' + count + '">';
+                                    html += '<div class="row">';
+                                        html += '<div class="col-2">' + agentStatus.agentStates[i].firstName + ' ' + agentStatus.agentStates[i].lastName + '</div>'
+                                        html += '<div class="col-6"></div>';
+                                        let newDate = new Date(agentStatus.agentStates[i].lastUpdateTime);
+                                        html += '<div class="col-3">' + secondsToTime(currTime-newDate.getTime()) + '</div>';
+                                        html += '<div class="col-1 status' + agentStatus.agentStates[i].agentStateId + '">' + agentStatus.agentStates[i].agentStateId + '</div>';
+                                    html += '</div>'; //row
+                                html += '</button>';
+                            html += '</h5>';
+                        html += '</div>'; //card header
+                    
+                        //card body
+                        html += '<div id="collapse' + count + '" class="collapse hide" aria-labelledby="heading' + count + '" data-parent="#accordion">';
+                            html += '<div class="card-body">Collapsible Content 2</div>';
+                        html += '</div>';
                     html += '</div>';
+                    count++;
                 }
             }
 

@@ -34,6 +34,10 @@
 
 }
 
+.testAccordion {
+    display: none;
+}
+
 .status0{
     background-color: lightgray;
 }
@@ -52,4 +56,12 @@
 
 .status4{
     background-color: orangered;
+}
+
+#accordion .card .card-header .mb-0 .btn {
+    width: 100%;
+}
+
+.btn {
+    width: 100%;
 }
