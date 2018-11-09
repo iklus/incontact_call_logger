@@ -17,6 +17,7 @@
 <p>
     <button onclick="redirectToInContactAuth()">InContact Login</button>
     <button onclick="getAgentContactHistory()">Get Agent Contact History</button>
+    <button onclick="redirectToSalesforceAuth()">Salesforce Login</button>
 </p>
 
 <!--
@@ -34,13 +35,13 @@
 
 </body>
 <script>
-    var application = "InContact_API_Test";
+    var application = "InContact_API";
     var vendor = "Ivan_Klus";
     //var client_id = window.btoa(application + "@" + vendor);
-    var client_id = "InContact_API_Test@Ivan_Klus";
+    var client_id = "InContact_API@Ivan_Klus";
 
     var implicitUri = "https://api.incontact.com/InContactAuthorizationServer/Authenticate";
-    var token_scope = "RealTimeApi AdminApi AgentApi ReportingApi";
+    var token_scope = "RealTimeApi AgentApi ReportingApi";
     var redirect_uri = "http://ivankl.us/incontact_call_logger";
     var state_object = "myState";
 
@@ -73,7 +74,6 @@
         window.location.href = url;
     }
 
-
     var urlParams;
     (window.onpopstate = function () {
         var match,
@@ -92,46 +92,48 @@
     var agentContactHistoryResult;
 
     function getAgentContactHistory() {
-    var agentId = document.getElementById('agentIdValue').value;
-    console.log('Agent ID:' + agentId);
-    getAgentContactHistoryPayload = {
-        'startDate': document.getElementById('startDate').value,
-        'endDate': document.getElementById('endDate').value,
-        'mediaTypeId': '4'
-    }   // 4 is the media type for Phone Calls
-        /* Unused parameters
-        'updatedSince': 'ISO 8601 formatted date/time',
-        'fields': 'string',
-        'skip': 'integer',
-        'top': 'integer',
-        'orderBy': 'string'
-        */
-    $.ajax({
-        //The baseURI variable is created by the result.base_server_base_uri,
-        //which is returned when getting a token and should be used to create the URL base
-        'url': urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history',
-        'type': 'GET',
-        'headers': {
-            'Authorization': 'bearer ' + urlParams["access_token"],
-            'content-Type': 'application/x-www-form-urlencoded'
-        },
-        'data': getAgentContactHistoryPayload,
-        'success': function (result, status, statusCode) {
-            //Process success actions
-            console.log('success: ' + status + " | " + statusCode);
-            console.log(result);
-            agentContactHistoryResult = result;
-            document.getElementById('test').innerHTML = JSON.stringify(result);
-        },
-        'error': function (XMLHttpRequest, textStatus, errorThrown) {
-            //Process error actions
-            console.log('error' + errorThrown);
-            return false;
-        }
-    });
-}
+        var agentId = document.getElementById('agentIdValue').value;
+        console.log('Agent ID:' + agentId);
+        getAgentContactHistoryPayload = {
+            'startDate': document.getElementById('startDate').value,
+            'endDate': document.getElementById('endDate').value,
+            'mediaTypeId': '4'
+        }   // 4 is the media type for Phone Calls
+            /* Unused parameters
+            'updatedSince': 'ISO 8601 formatted date/time',
+            'fields': 'string',
+            'skip': 'integer',
+            'top': 'integer',
+            'orderBy': 'string'
+            */
+        $.ajax({
+            //The baseURI variable is created by the result.base_server_base_uri,
+            //which is returned when getting a token and should be used to create the URL base
+            'url': urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history',
+            'type': 'GET',
+            'headers': {
+                'Authorization': 'bearer ' + urlParams["access_token"],
+                'content-Type': 'application/x-www-form-urlencoded'
+            },
+            'data': getAgentContactHistoryPayload,
+            'success': function (result, status, statusCode) {
+                //Process success actions
+                console.log('success: ' + status + " | " + statusCode);
+                console.log(result);
+                agentContactHistoryResult = result;
+                document.getElementById('test').innerHTML = JSON.stringify(result);
+            },
+            'error': function (XMLHttpRequest, textStatus, errorThrown) {
+                //Process error actions
+                console.log('error' + errorThrown);
+                return false;
+            }
+        });
+    }
 
-
+    function redirectToSalesforceAuth() {
+        
+    }
 
 
     /*  Doesn't work (my attempt to make REST call without jQuery)
