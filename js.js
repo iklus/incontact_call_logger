@@ -66,12 +66,12 @@ function getAgentStates(result, status, statusCode) {
                     html += '<div class="card-header"';
                         html += '<h5 class="mb-0">';
                 //change tags
-                            html += '<button class="btn btn-link" data-toggle="collapse" data-target="#collapse' + currentAgentId + '" aria-expanded="true" aria-controls="collapse' + currentAgentId + '">';
+                            html += '<button id="' + currentAgentId + 'button" class="btn btn-link" data-toggle="collapse" data-target="#collapse' + currentAgentId + '" aria-expanded="true" aria-controls="collapse' + currentAgentId + '">';
                                 html += '<div class="row">';
                                     html += '<div class="col-2">' + agentStatus.agentStates[i].firstName + ' ' + agentStatus.agentStates[i].lastName + '</div>'
                                     html += '<div class="col-6"></div>';
                                     let newDate = new Date(agentStatus.agentStates[i].lastUpdateTime);
-                                    html += '<div class="col-3">' + secondsToTime(Math.floor((currTime-newDate.getTime())/10000)) + '</div>';
+                                    html += '<div class="col-3">' + secondsToTime(Math.floor((currTime-newDate.getTime())/1000)) + '</div>';
                                     html += '<div class="col-1 status' + agentStatus.agentStates[i].agentStateId + '">' + agentStatus.agentStates[i].agentStateId + '</div>';
                                 html += '</div>'; //row
                             html += '</button>';
@@ -171,27 +171,11 @@ function interactionHistory(result, agentId){
     for (let i = 0; i < result.agentStateHistory.length; i++){
         if (result.agentStateHistory[i].agentStateId != undefined){
             //if it's the first entry, or the sessionId, stateId, or incoming caller changed
-            html += '<div class="row">';
+            
             if ((i==0) || (i > 0 && ((result.agentStateHistory[i].agentSessionId != result.agentStateHistory[i-1].agentSessionId) || (result.agentStateHistory[i].agentStateId != result.agentStateHistory[i-1].agentStateId) || (result.agentStateHistory[i].fromAddress != result.agentStateHistory[i-1].fromAddress)))){
-                html += '<div class="col-2">';
-                    html += 'Agent State: ' + result.agentStateHistory[i].agentStateName;
-                html += '</div>';
-
-                html += '<div class="col-5">';
-                    let date = new Date(result.agentStateHistory[i].startDate);
-                    html += date.toUTCString();
-                html += '</div>';
-
-                html += '<div class="col-3">';
-                    html += 'Duration: ' + secondsToTime(result.agentStateHistory[i].duration);
-                html += '</div>';
-
-                html += '<div class="col-2">';
-                    if (result.agentStateHistory[i].fromAddress != null){
-                        html += 'Caller: ' + result.agentStateHistory[i].fromAddress.substring(0, 3) + '-' + result.agentStateHistory[i].fromAddress.substring(3, 6) + '-' + result.agentStateHistory[i].fromAddress.substring(6);
-                    }
-                html += '</div>';
+                html += createDropdownElement(result.agentStateHistory[i].agentId, result.agentStateHistory[i].agentStateName, result.agentStateHistory[i].startDate, result.agentStateHistory[i].duration, result.agentStateHistory[i].fromAddress);
             } else {
+                html += '<div class="row">';
                 html += '<div class="col-2">';
                     html += 'Agent State: ' + result.agentStateHistory[i].agentStateName;
                 html += '</div>';
@@ -220,8 +204,9 @@ function interactionHistory(result, agentId){
                         html += 'Caller: ' + result.agentStateHistory[i].fromAddress.substring(0, 3) + '-' + result.agentStateHistory[i].fromAddress.substring(3, 6) + '-' + result.agentStateHistory[i].fromAddress.substring(6);
                     }
                 html += '</div>';
+                html += '</div>';
             }
-            html += '</div>'
+            
             document.getElementById(agentId + 'card-body').innerHTML += html;
             html = '';
         }
@@ -312,9 +297,14 @@ function timer(){
     let count = 0;
     setInterval(function(){
         if (count == 4){
+            let updatedSince = new Date(Date.now());
+            //updatedSince.setDate(updatedSince.getDate()-1);
+            updatedSince = updatedSince.toISOString();
+            console.log(`updatedSince303: ${updatedSince}`);
             getAgentContactStatusPayload = {
-                'updatedSince': '2018-10-29T14:07:19-04:00',
-                'fields': 'agentId, agentStateId, firstName, lastName, lastUpdateTime, teamName'
+                'updatedSince': updatedSince,
+                //'updatedSince': '2018-10-29T14:07:19-04:00',
+                'fields': 'agentId, agentStateId, agentStateName, firstName, lastName, lastUpdateTime, startDate, teamName'
             }
         
             $.ajax({
@@ -327,7 +317,7 @@ function timer(){
                     'content-Type': 'application/x-www-form-urlencoded'
                 },
                 'data': getAgentContactStatusPayload,
-                'success': function (result, ) {
+                'success': function (result) {
                     updateAgentStatus(result);
                 },
                 'error': function (XMLHttpRequest, textStatus, errorThrown) {
@@ -350,31 +340,62 @@ function timer(){
 
 function updateAgentStatus(fullResult){
     let result = fullResult.agentStates.filter(team => team.teamName == 'SL Client Services');
-    console.log(result);
+    //let elements = document.getElementById('testGeneratedHTML').getElementsByClassName("btn btn-link");;
     
-    // for (let h = 0; h < fullResult.length; h++){
-    //     if (fullResult.agentStates[h].teamName == 'SL Client Services'){
-    //         result += fullResult.agentStates[h];
-    //     }
-    // }
-
-    let elements = document.getElementById('testGeneratedHTML').getElementsByClassName("btn btn-link");;
-    for (let i = 0; i < elements.length; i++){
-        //let agentId = elements[i].parentNode.nextElementSibling.id.substring(elements[i].parentNode.nextElementSibling.id.indexOf('e') + 1);
-        //console.log(elements[i].children[0]);
-        let agentName = elements[i].children[0].children[0].innerText.split(' ');
-        if (agentName[0] == result[i].firstName && agentName[0] == result[i].lastName && elements[i].children[0].children[3].innerText !== result[i].agentStateId){
-            elements[i].children[0].children[3].innerText = result[i].agentStateId;
-            elements[i].children[0].children[3].className = `col-1 status${result[i].agentStateId}`;
-            elements[i].children[0].children[2].innerText = '0:0:0';
-            console.log('agentState changed!');
-            console.log(elements[i].children[0].children[3].innerHTML);
-            console.log('elements[i].children[0].children[3].innerText: ' + elements[i].children[0].children[3].innerHTML);
-            //console.log('result.agentStates[i].agentStateId: ' + result.agentStates[i].agentStateId);
+    for (let i = 0; i < result.length; i++){
+        let button = document.getElementById(`${result[i].agentId}button`);
+        if(button.children[0].children[3].innerHTML != result[i].agentStateId){
+            console.log(`Agent state changed from ${button.children[0].children[3].innerHTML} to ${result[i].agentStateId}`);
+            //update stateId text
+            button.children[0].children[3].innerHTML = result[i].agentStateId;
+            //update element class so color changes
+            button.children[0].children[3].classList = `col-1 status${result[i].agentStateId}`;
+            //change top dropdown entry
+            document.getElementById(`${result[i].agentId}card-body`).children[0].children[2].innerHTML = `Duration: ${button.children[0].children[2].innerHTML}`;
+            //reset duration clock
+            button.children[0].children[2].innerHTML = '0:0:0';
+            //add new dropdown entry
+            let html = createDropdownElement(result[i].agentId, result[i].agentStateName, Date.now(), 0, result[i].fromAddress);
+            let inner = document.getElementById(result[i].agentId + 'card-body').innerHTML;
+            document.getElementById(agentId + 'card-body').innerHTML = html + inner;
         } else {
-            console.log('agentState didnt change');
+            console.log(`Agent status has remained at ${button.children[0].children[3].innerHTML}`);
         }
-        //elements[i].children[0].children[2].innerText = addTwoTimes(elements[i].children[0].children[2].innerText, '00:00:01');
     }
+}
 
+
+
+function stateChanged(agentId){
+    let cardHeader = document.getElementById(`${agentId}card-header`);
+    cardHeader.children[2].innerHTML = '0:0:0';
+    cardHeader.children[3].className = '';
+}
+
+
+
+function createDropdownElement(agentId, agentStateName, startDate, duration, fromAddress){
+    let html = '<div class="row">';
+        html += '<div class="col-2">';
+        html += `Agent State: ${agentStateName}`;
+        html += '</div>';
+
+        html += '<div class="col-5">';
+            let date = new Date(startDate);
+            html += date.toUTCString();
+        html += '</div>';
+
+        html += '<div class="col-3">';
+            html += 'Duration: ' + secondsToTime(duration);
+        html += '</div>';
+
+        html += '<div class="col-2">';
+            if (fromAddress != null){
+                html += 'Caller: ' + fromAddress.substring(0, 3) + '-' + fromAddress.substring(3, 6) + '-' + fromAddress.substring(6);
+            }
+        html += '</div>';
+    
+    html += '</div>';
+
+    return html;
 }
