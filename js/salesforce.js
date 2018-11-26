@@ -1,0 +1,27 @@
+var application = "Call_Logger";
+var consumer_key = "3MVG9KsVczVNcM8yZosqFDx.WpTcrPTukjC3xgmkPxRtq7eHB1P5EWeCeJhmbMq4RbuGTitgyksIr9Gr5KIQf";
+var client_id = "InContact_API@Ivan_Klus";
+var auth_url = "https://login.salesforce.com/services/oauth2/authorize";
+var responce_type = "token";
+var redirect_uri = "https://ivankl.us/incontact_call_logger";
+var state_object = "mystate";
+
+
+function redirectToSalesforceAuth() {
+    var url = auth_url;
+    url = url + "?state=" + state_object;
+    url = url + "&response_type=token";
+    url = url + "&client_id=" + encodeURIComponent(client_id);
+    url = url + "&redirect_uri=" + encodeURIComponent(redirect_uri);
+    console.log(url);
+    window.location.href = url;
+}
+
+
+https://login.salesforce.com/services/oauth2/authorize?response_type=token&
+2
+client_id=3MVG9lKcPoNINVBIPJjdw1J9LLJbP_pqwoJYyuisjQhr_LLurNDv7AgQvDTZwCoZuD
+3
+ZrXcPCmBv4o.8ds.5iE&redirect_uri=https%3A%2F%2Fwww.mysite.com%2Fuser_callback.jsp&
+4
+state=mystate
