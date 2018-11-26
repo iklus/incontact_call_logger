@@ -17,11 +17,3 @@ function redirectToSalesforceAuth() {
     window.location.href = url;
 }
 
-
-https://login.salesforce.com/services/oauth2/authorize?response_type=token&
-2
-client_id=3MVG9lKcPoNINVBIPJjdw1J9LLJbP_pqwoJYyuisjQhr_LLurNDv7AgQvDTZwCoZuD
-3
-ZrXcPCmBv4o.8ds.5iE&redirect_uri=https%3A%2F%2Fwww.mysite.com%2Fuser_callback.jsp&
-4
-state=mystate

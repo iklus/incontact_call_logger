@@ -31,10 +31,7 @@ var urlParams;
     while (match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
 })();
-
 console.log(urlParams);
-var requestURL = urlParams['resource_server_base_uri'] + 'services/v12.0/agents/' + agentId + '/interaction-history';
-var agentContactHistoryResult;
 
 function getAgentContactHistory() {
     var agentId = document.getElementById('agentIdValue').value;
