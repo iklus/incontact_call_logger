@@ -10,8 +10,8 @@ var state_object = "mystate";
 function redirectToSalesforceAuth() {
     var url = auth_url;
     url = url + "?state=" + state_object;
-    url = url + "&response_type=token";
-    url = url + "&client_id=" + encodeURIComponent(client_id);
+    url = url + "&response_type=" + responce_type;
+    url = url + "&client_id=" + encodeURIComponent(consumer_key);
     url = url + "&redirect_uri=" + encodeURIComponent(redirect_uri);
     console.log(url);
     window.location.href = url;
